@@ -4,7 +4,7 @@ This project is an implementation of a chaos visualizer using both Assembly and 
 
 ## Sample
 
-![image](./resources/Image_0.jpeg)
+![image](./resources/Image-0.jpeg)
 
 ## Table of Contents
 
