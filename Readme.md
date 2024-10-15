@@ -1,38 +1,48 @@
 # Chaos Visualiser
 
-Chaos Visualiser is an assembly language project that generates an ASCII animation of the logistic map's chaotic behavior. This program demonstrates advanced assembly techniques, including:
+Chaos Visualiser is an interactive program that generates an ASCII animation of the logistic map's chaotic behavior. This project combines assembly language for core computations with C++ for visualization, demonstrating how low-level programming can be used to create engaging visual outputs.
 
-- Custom fixed-point arithmetic
-- Direct system calls for I/O operations
-- Efficient loop structures
-- ASCII art generation
+## Features
+
+- Real-time ASCII animation of the logistic map
+- Utilises assembly language for efficient computation
+- Colorful terminal output using the rang library
+- Demonstrates the chaotic behavior of simple mathematical systems
 
 ## Requirements
 
 - NASM (Netwide Assembler)
-- Linux-based operating system (x86 or x86\_64)
-- GCC (for linking)
+- GCC (GNU Compiler Collection)
+- C++11 compatible compiler
+- Linux-based operating system (x86\_64)
 
 ## Installation
 
-1. Clone this repository or download the source files.
-2. Ensure you have NASM installed. You can install it on most Linux distributions with:
+1. Clone this repository:
    ```
-   sudo apt-get install nasm
+   git clone https://github.com/cschladetsch/chaos-visualiser.git
+   cd chaos-visualiser
    ```
-   (Replace `apt-get` with your system's package manager if different)
+
+2. Ensure you have NASM and GCC installed. On most Linux distributions, you can install them with:
+   ```
+   sudo apt-get install nasm gcc
+   ```
 
 ## Usage
 
-The project includes a bash script `r` that handles assembly, linking, and running of the program.
-
-To use the script:
+To compile and run the Chaos Visualiser, simply execute the provided script:
 
 ```
 ./r
 ```
 
-This will assemble the code, link it, and run the resulting executable.
+This script will:
+1. Download the required rang library
+2. Assemble the assembly code
+3. Compile the C++ wrapper
+4. Link the object files
+5. Run the resulting executable
 
 ## How It Works
 
@@ -44,28 +54,11 @@ x[n+1] = r * x[n] * (1 - x[n])
 
 where x is between 0 and 1, and r is a parameter between 0 and 4.
 
-The program uses this equation to generate a series of values, which are then mapped to ASCII characters to create a dynamic visual pattern. The r parameter is gradually increased over time, causing the system's behavior to evolve from stable to chaotic.
-
-## Output
-
-The program generates an ASCII animation directly in the terminal. Each character represents a value in the chaotic system, with different characters indicating different ranges of values.
-
-## Troubleshooting
-
-If you encounter any issues:
-
-1. Ensure NASM is correctly installed and in your system PATH.
-2. Check that you have the necessary permissions to execute files in the project directory.
-3. If you see no output, try redirecting the output to a file:
-   ```
-   ./chaos_visualiser > output.txt
-   ```
-   Then check the contents of output.txt.
-4. For detailed error messages, you can modify the `r` script to run NASM and LD with verbose output flags.
+The assembly code calculates the next state of the system, while the C++ code handles the visualization, creating an ASCII art representation of the chaotic system's state.
 
 ## Contributing
 
-Contributions to improve the program or add new features are welcome. Please feel free to submit pull requests or open issues for any bugs or feature requests.
+Contributions to improve the Chaos Visualiser are welcome. Please feel free to submit pull requests or open issues for any bugs or feature requests.
 
 ## License
 
