@@ -1,6 +1,7 @@
 # Compiled binary
 /chaos_visualizer
 /vis
+/chaos_visualiser_cpp_version
 
 # Object files
 *.o

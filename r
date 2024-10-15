@@ -17,5 +17,5 @@ echo "Assembling chaos_visualiser.asm..."
 nasm -f elf64 chaos_visualiser.asm -o chaos_visualiser.o
 
 # Compile and link the C++ code with -fPIE
-g++ -fPIE chaos_visualiser.cpp chaos_visualiser.o -o chaos_visualiser -lstdc++
+g++ -fPIE chaos_visualiser.cpp chaos_visualiser.o -o chaos_visualiser -lstdc++ && ./chaos_visualiser
 

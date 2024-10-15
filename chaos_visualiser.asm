@@ -1,7 +1,7 @@
 section .data
     one dq 1.0
     increment dq 0.01    ; Slow increment of r
-    init_x dq 0.5        ; Initial x value
+    init_x dq 0.6        ; Initial x value
     r dq 3.5             ; Initial r value
 
 section .bss
@@ -11,8 +11,6 @@ section .text
 global calculate_next_state
 
 calculate_next_state:
-    ; RDI contains the pointer to the output buffer
-
     mov ecx, 25          ; Loop for 25 lines
     mov rax, [rel init_x] ; Load initial x value to register
     mov [rel x], rax     ; Set x to initial value
@@ -29,26 +27,19 @@ char_loop:
     fmulp st1, st0       ; r * x * (1 - x)
     fstp qword [rel x]   ; Store the result back to x
 
-    ; Make sure x is in the range [0, 1]
+    ; Debug: print value of x (scale and map to ASCII '0'-'9')
     fld qword [rel x]
-    fld1
-    fsub st0, st1        ; 1 - x (ensures it's between 0 and 1)
-    fisttp qword [rel x] ; Convert to integer if needed
-
-    ; Scale x to a better range for ASCII characters (using a broader range)
+    fmul qword [rel one] ; Scale to 0-9 for easier output
+    fisttp qword [rel x] ; Convert to integer
     mov rax, [rel x]
-    and rax, 15          ; Limit value to 0-15 for a wider ASCII range
-
-    ; Convert to an ASCII character
-    add al, ' '          ; Map to ASCII range starting from space ' '
+    add al, '0'          ; Convert to ASCII '0'-'9'
     mov [rdi], al        ; Store in output buffer
     inc rdi
 
-    ; Loop for all characters in the line
     dec ecx
     jnz char_loop
 
-    ; Add newline
+    ; Add newline after each line
     mov byte [rdi], 10   ; Newline
     inc rdi
 
@@ -56,7 +47,6 @@ char_loop:
     dec ecx
     jnz line_loop
 
-    ; Increment r slowly for next cycle
     fld qword [rel r]
     fadd qword [rel increment]
     fstp qword [rel r]

@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Clean previous build files
+echo "Cleaning previous build files..."
+rm -f chaos_visualiser_cpp_version
+
+# Check if rang.hpp exists
+if [ ! -f "rang.hpp" ]; then
+    echo "Downloading rang library..."
+    curl -O https://raw.githubusercontent.com/agauniyal/rang/master/include/rang.hpp
+else
+    echo "rang.hpp already exists, skipping download."
+fi
+
+# Compile and link the C++ code
+echo "Compiling chaos_visualiser_cpp_version.cpp..."
+g++ -std=c++11 -o chaos_visualiser_cpp_version chaos_visualiser_cpp_version.cpp -lpthread
+
+# Check if compilation was successful
+if [ $? -eq 0 ]; then
+    echo "Compilation successful. Running program..."
+    ./chaos_visualiser_cpp_version
+else
+    echo "Compilation failed."
+fi
+
