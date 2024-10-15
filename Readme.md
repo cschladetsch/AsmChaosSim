@@ -2,6 +2,10 @@
 
 This project is an implementation of a chaos visualizer using both Assembly and C++. The visualizer uses the **logistic map equation** to generate chaotic behavior and displays it using ASCII characters with color-coded output via the **rang** library.
 
+## Sample
+
+![image](./resources/Image_0.jpeg)
+
 ## Table of Contents
 
 1. [Overview](#overview)
