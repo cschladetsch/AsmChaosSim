@@ -1,0 +1,13 @@
+# Compiled binary
+chaos_visualizer
+
+# Object files
+*.o
+
+# Temporary files
+*~
+.*.swp
+
+# OS-specific files
+.DS_Store
+Thumbs.db
