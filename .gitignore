@@ -1,5 +1,6 @@
 # Compiled binary
-chaos_visualizer
+/chaos_visualizer
+/vis
 
 # Object files
 *.o
