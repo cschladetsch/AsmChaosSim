@@ -28,6 +28,10 @@ The program generates chaotic values based on the logistic map and displays them
 
 The logistic map is a mathematical function that models chaotic behavior. It is defined by the equation:
 
+The logistic map is defined as \(x_{n+1} = r \cdot x_n \cdot (1 - x_n)\).
+
+Or in LaTex:
+
 \[
 x_{n+1} = r \cdot x_n \cdot (1 - x_n)
 \]
