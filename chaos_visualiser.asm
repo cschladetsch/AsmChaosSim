@@ -1,119 +1,60 @@
-; Chaos Visualiser
-; A program that generates an ASCII animation of the logistic map's chaotic behavior
 section .data
-    debug_msg db "Debug: Iteration ", 0
-    debug_msg_len equ $ - debug_msg
-    newline db 10
-    symbols db " .:;+=xX$&"
-    one dd 1.0
-    r dd 3.75  ; Initial r value
+    one dq 1.0
+    r dq 3.5  ; Initial r value
 
 section .bss
-    x resd 1   ; Current x value
-    debug_num resb 16
+    x resq 1   ; Current x value
 
 section .text
-global _start
+global calculate_next_state
 
-_start:
-    ; Initialize x
-    fld dword [one]
-    fmul dword [one]
-    fstp dword [x]
-
-    ; Main loop
-    mov ecx, 10  ; Reduced number of iterations for debugging
-main_loop:
-    push ecx  ; Save loop counter
-
-    ; Print debug message
-    mov eax, 4
-    mov ebx, 1
-    mov ecx, debug_msg
-    mov edx, debug_msg_len
-    int 0x80
-
-    ; Print iteration number
-    mov eax, 10
-    sub eax, ecx
-    add eax, '0'  ; Convert to ASCII
-    mov [debug_num], al
-    mov eax, 4
-    mov ebx, 1
-    mov ecx, debug_num
-    mov edx, 1
-    int 0x80
-
-    ; Print newline
-    mov eax, 4
-    mov ebx, 1
-    mov ecx, newline
-    mov edx, 1
-    int 0x80
-
-    ; Generate and print 5 lines of 20 characters each (reduced for debugging)
-    mov ecx, 5  ; Line counter
-line_loop:
-    push ecx  ; Save line counter
+calculate_next_state:
+    ; RDI contains the pointer to the output buffer
     
-    mov ecx, 20  ; 20 characters per line
+    ; Generate 25 lines of 80 characters each
+    mov ecx, 25  ; Line counter
+line_loop:
+    push rcx  ; Save line counter
+    
+    mov ecx, 80  ; 80 characters per line
 char_loop:
     ; Compute next x value: x = r * x * (1 - x)
-    fld dword [r]     ; r
-    fmul dword [x]    ; r * x
-    fld dword [one]   ; 1
-    fsub dword [x]    ; 1 - x
+    fld qword [r]     ; r
+    fmul qword [x]    ; r * x
+    fld1              ; 1
+    fsub qword [x]    ; 1 - x
     fmulp st1, st0    ; r * x * (1 - x)
-    fstp dword [x]    ; store result back to x
+    fstp qword [x]    ; store result back to x
 
-    ; Convert to ASCII symbol and print
-    fld dword [x]
-    fmul dword [one]  ; Scale to 0-8
-    fisttp dword [x]  ; Convert to integer
+    ; Convert to ASCII symbol
+    fld qword [x]
+    fmul qword [one]  ; Scale to 0-7
+    fisttp qword [x]  ; Convert to integer
     
-    mov eax, [x]
-    and eax, 7        ; Ensure it's 0-7
+    mov rax, [x]
+    and rax, 7        ; Ensure it's 0-7
     
-    ; Print symbol
-    mov edx, 1
-    mov ecx, symbols
-    add ecx, eax
-    push eax
-    mov eax, 4
-    mov ebx, 1
-    int 0x80
-    pop eax
-    
-    loop char_loop
+    ; Store symbol in output buffer
+    add al, ' '       ; Convert to ASCII range ' ' to '&'
+    mov [rdi], al
+    inc rdi
 
-    ; Print newline
-    mov eax, 4
-    mov ebx, 1
-    mov ecx, newline
-    mov edx, 1
-    int 0x80
+    dec ecx
+    jnz char_loop
 
-    pop ecx  ; Restore line counter
+    ; Add newline to buffer
+    mov byte [rdi], 10  ; Newline character
+    inc rdi
+
+    pop rcx  ; Restore line counter
     dec ecx
     jnz line_loop
 
     ; Increase r parameter
-    fld dword [r]
-    fadd dword [one]
-    fmul dword [one]  ; Slow down the increase
-    fstp dword [r]
-    
-    ; Delay
-    mov eax, 162
-    mov ebx, 500  ; Increased delay for debugging
-    xor ecx, ecx
-    int 0x80  ; nanosleep syscall
-    
-    pop ecx  ; Restore main loop counter
-    dec ecx
-    jnz main_loop
+    fld qword [r]
+    fld1
+    faddp st1, st0
+    fmul qword [one]  ; Slow down the increase
+    fstp qword [r]
 
-    ; Exit
-    mov eax, 1
-    xor ebx, ebx
-    int 0x80
+    ret

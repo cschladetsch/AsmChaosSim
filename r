@@ -1,29 +1,18 @@
-
 #!/bin/bash
 
-# Assemble the code
-nasm -f elf32 chaos_visualiser.asm -o chaos_visualiser.o
+set -e  # Exit immediately if a command exits with a non-zero status.
 
-# Check if assembly was successful
-if [ $? -ne 0 ]; then
-    echo "Assembly failed. Please check for errors."
-    exit 1
-fi
+echo "Downloading rang library..."
+curl -O https://raw.githubusercontent.com/agauniyal/rang/master/include/rang.hpp
 
-# Link the object file
-ld -m elf_i386 chaos_visualiser.o -o chaos_visualiser
+echo "Assembling chaos_visualiser.asm..."
+nasm -f elf64 chaos_visualiser.asm -o chaos_visualiser_asm.o
 
-# Check if linking was successful
-if [ $? -ne 0 ]; then
-    echo "Linking failed. Please check for errors."
-    exit 1
-fi
+echo "Compiling C++ wrapper..."
+g++ -c -no-pie chaos_visualiser.cpp -o chaos_visualiser.o
 
-echo "Build successful. Running Chaos Visualiser..."
+echo "Linking object files..."
+g++ -no-pie chaos_visualiser.o chaos_visualiser_asm.o -o vis
 
-# Run the program
-./chaos_visualiser
-
-echo "Program finished. Check the output in 'output.txt'."
-echo "Contents of output.txt:"
-cat output.txt
+echo "Running Chaos Visualiser..."
+./vis
