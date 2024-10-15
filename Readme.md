@@ -29,12 +29,15 @@ The program generates chaotic values based on the logistic map and displays them
 The logistic map is a mathematical function that models chaotic behavior. It is defined by the equation:
 
 \[
-x_{n+1} = r \times x_n \times (1 - x_n)
+x_{n+1} = r \cdot x_n \cdot (1 - x_n)
 \]
 
 Where:
-- **r**: A parameter controlling the chaos level.
-- **x**: The current state (0 <= x <= 1).
+- **\(x_{n+1}\)**: The value of \(x\) at the next iteration.
+- **\(r\)**: A parameter that controls the level of chaos in the system.
+- **\(x_n\)**: The value of \(x\) at the current iteration.
+
+This equation generates chaotic behavior when \(r\) is between approximately 3.5 and 4.0. The value of `x` oscillates in a seemingly random pattern, and the visualizer uses this chaotic output for generating ASCII representations.
 
 ## File Descriptions
 
@@ -125,4 +128,3 @@ You can customize the visualizer by changing parameters in both the assembly and
 ## License
 
 This project is released under the MIT License.
-
