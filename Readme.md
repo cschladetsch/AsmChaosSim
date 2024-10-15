@@ -1,69 +1,41 @@
-# Chaos Visualiser
+# Chaos Visualizer
 
-Chaos Visualiser is an interactive program that generates an ASCII animation of the logistic map's chaotic behavior. This project combines assembly language for core computations with C++ for visualization, demonstrating how low-level programming can be used to create engaging visual outputs.
+This project implements a chaotic visualizer using both Assembly and C++. The visualizer displays chaotic behavior using the logistic map equation (`x = r * x * (1 - x)`) and represents the output in ASCII characters with colors, thanks to the `rang` library.
 
 ## Sample
 
-![Image](./resources/Image-0.jpeg)
+![image](./resources/Image-0.jpeg)
 
-## Features
+## Files
 
-- Real-time ASCII animation of the logistic map
-- Utilises assembly language for efficient computation
-- Colorful terminal output using the rang library
-- Demonstrates the chaotic behavior of simple mathematical systems
+- **`chaos_visualiser.asm`**: Assembly implementation for chaotic visualization.
+- **`chaos_visualiser.cpp`**: C++ program calling the assembly function.
+- **`chaos_visualiser_cpp_version.cpp`**: Pure C++ version using the `rang` library for colors.
+- **`.gitignore`**: Ignores compiled binaries and other unnecessary files.
 
-## Requirements
+## Building and Running
 
-- NASM (Netwide Assembler)
-- GCC (GNU Compiler Collection)
-- C++11 compatible compiler
-- Linux-based operating system (x86\_64)
+### Requirements
 
-## Installation
+- `g++` compiler
+- `NASM` assembler
+- `rang` library (auto-downloaded if not present)
 
-1. Clone this repository:
+### Steps
+
+1. **Building the Assembly version**:
+   ```bash
+   ./r
    ```
-   git clone https://github.com/cschladetsch/chaos-visualiser.git
-   cd chaos-visualiser
+   This will assemble and run the assembly-based chaotic visualizer.
+
+2. **Building the C++ version**:
+   ```bash
+   ./rc
    ```
+   This will compile and run the pure C++ version (`chaos_visualiser_cpp_version.cpp`).
 
-2. Ensure you have NASM and GCC installed. On most Linux distributions, you can install them with:
-   ```
-   sudo apt-get install nasm gcc
-   ```
+## Visualization
 
-## Usage
+The visualizer shows 25 rows of 80 characters representing chaotic values. The program continuously updates the screen to reflect the dynamic nature of the logistic map, with different colors corresponding to different states.
 
-To compile and run the Chaos Visualiser, simply execute the provided script:
-
-```
-./r
-```
-
-This script will:
-1. Download the required rang library
-2. Assemble the assembly code
-3. Compile the C++ wrapper
-4. Link the object files
-5. Run the resulting executable
-
-## How It Works
-
-The Chaos Visualiser implements the logistic map, a simple mathematical model that can produce complex, chaotic behavior. The logistic map is defined by the equation:
-
-```
-x[n+1] = r * x[n] * (1 - x[n])
-```
-
-where x is between 0 and 1, and r is a parameter between 0 and 4.
-
-The assembly code calculates the next state of the system, while the C++ code handles the visualization, creating an ASCII art representation of the chaotic system's state.
-
-## Contributing
-
-Contributions to improve the Chaos Visualiser are welcome. Please feel free to submit pull requests or open issues for any bugs or feature requests.
-
-## License
-
-This project is open source and available under the MIT License.
