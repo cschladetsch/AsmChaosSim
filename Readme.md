@@ -1,6 +1,6 @@
 # Chaos Visualizer
 
-This project is an implementation of a chaos visualizer using both Assembly and C++. The visualizer uses the **logistic map equation** (`x = r * x * (1 - x)`) to generate chaotic behavior and display it using ASCII characters with color-coded output via the **rang** library.
+This project is an implementation of a chaos visualizer using both Assembly and C++. The visualizer uses the **logistic map equation** to generate chaotic behavior and displays it using ASCII characters with color-coded output via the **rang** library.
 
 ## Table of Contents
 
@@ -37,7 +37,7 @@ Where:
 - **\(r\)**: A parameter that controls the level of chaos in the system.
 - **\(x_n\)**: The value of \(x\) at the current iteration.
 
-This equation generates chaotic behavior when \(r\) is between approximately 3.5 and 4.0. The value of `x` oscillates in a seemingly random pattern, and the visualizer uses this chaotic output for generating ASCII representations.
+This equation generates chaotic behavior when \(r\) is between approximately 3.5 and 4.0. As the equation evolves over time, the value of \(x\) oscillates in a seemingly random pattern. The visualizer uses these chaotic values to generate a visual representation of the behavior.
 
 ## File Descriptions
 
@@ -63,10 +63,6 @@ Ensure you have the following installed:
 ## Installation and Setup
 
 1. Clone the repository to your local machine.
-   ```bash
-   git clone <repository-url>
-   cd <repository-directory>
-   ```
 
 2. Ensure the `rang.hpp` file exists or will be downloaded automatically when running the scripts.
 
@@ -128,3 +124,4 @@ You can customize the visualizer by changing parameters in both the assembly and
 ## License
 
 This project is released under the MIT License.
+
