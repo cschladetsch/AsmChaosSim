@@ -2,6 +2,10 @@
 
 Chaos Visualiser is an interactive program that generates an ASCII animation of the logistic map's chaotic behavior. This project combines assembly language for core computations with C++ for visualization, demonstrating how low-level programming can be used to create engaging visual outputs.
 
+## Sample
+
+![Image](./resources/Image-0.jpeg)
+
 ## Features
 
 - Real-time ASCII animation of the logistic map
