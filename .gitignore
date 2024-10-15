@@ -4,6 +4,8 @@ chaos_visualizer
 # Object files
 *.o
 
+/chaos_visuliser
+
 # Temporary files
 *~
 .*.swp
